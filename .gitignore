@@ -3,3 +3,7 @@
 .oppbuildspec
 .cproject
 .settings
+.qtenvrc
+out/
+Makefile
+Wireless
