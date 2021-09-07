@@ -17,15 +17,9 @@ package code;
 
 import code.device.WirelessDevice;
 
-//
-// TODO Auto-generated network
-//
 network Lab
 {
-    parameters:
-
     submodules:
         wirelessDevice1: WirelessDevice;
         wirelessDevice2: WirelessDevice;
-    connections allowunconnected:
 }

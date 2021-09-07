@@ -13,12 +13,10 @@
 // along with this program.  If not, see http://www.gnu.org/licenses/.
 // 
 package code.device;
-//
-// TODO auto-generated module
-//
+
 simple WirelessDevice
 {
-   gates:
-		input in @directIn;
+	gates:
+	    input in @directIn;
 }
 	

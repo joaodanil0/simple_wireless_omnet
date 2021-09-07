@@ -20,14 +20,11 @@
 
 using namespace omnetpp;
 
-/**
- * TODO - Generated class
- */
 class WirelessDevice : public cSimpleModule
 {
 private:
-    cModule *server;
-  protected:
+    cModule *destination;
+protected:
     virtual void initialize();
     virtual void handleMessage(cMessage *msg);
 };

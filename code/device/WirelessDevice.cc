@@ -21,17 +21,17 @@ void WirelessDevice::initialize()
 {
     if(strcmp("wirelessDevice1", getName()) == 0){
         cPacket *msg = new cPacket("tictocMsg");
-        server = getModuleByPath("wirelessDevice2");
-        sendDirect(msg, 1, 50, server->gate("in"));
+        destination = getModuleByPath("wirelessDevice2");
+        sendDirect(msg, 1, 50, destination->gate("in"));
     }
 }
 
 void WirelessDevice::handleMessage(cMessage *msg)
 {
     if(strcmp("wirelessDevice1", getName()) == 0)
-        server = getModuleByPath("wirelessDevice2");
+        destination = getModuleByPath("wirelessDevice2");
     else if(strcmp("wirelessDevice2", getName()) == 0)
-        server = getModuleByPath("wirelessDevice1");
+        destination = getModuleByPath("wirelessDevice1");
 
-    sendDirect(msg, 1, 50, server->gate("in"));
+    sendDirect(msg, 1, 50, destination->gate("in"));
 }
