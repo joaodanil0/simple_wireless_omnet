@@ -20,18 +20,24 @@ Define_Module(WirelessDevice);
 void WirelessDevice::initialize()
 {
     if(strcmp("wirelessDevice1", getName()) == 0){
-        cPacket *msg = new cPacket("tictocMsg");
-        destination = getModuleByPath("wirelessDevice2");
-        sendDirect(msg, 1, 50, destination->gate("in"));
+        cPacket *msg = new cPacket("1");
+        scheduleAt(simTime(), msg);
     }
 }
 
 void WirelessDevice::handleMessage(cMessage *msg)
 {
-    if(strcmp("wirelessDevice1", getName()) == 0)
-        destination = getModuleByPath("wirelessDevice2");
-    else if(strcmp("wirelessDevice2", getName()) == 0)
-        destination = getModuleByPath("wirelessDevice1");
+    if(strcmp(this->pktName, "1") != 0){  // trick to stop flooding
 
-    sendDirect(msg, 1, 50, destination->gate("in"));
+        for(auto wirelessDevice:getParentModule()->getSubmoduleNames()){
+            if(strcmp(wirelessDevice.c_str(), getName()) != 0){
+                cModule *target = getParentModule()->getSubmodule(wirelessDevice.c_str());
+
+                this->pktName = msg->dup()->getName(); //// trick to stop flooding
+
+                sendDirect(msg->dup(), 1, 2, target, "in");
+            }
+        }
+    }
+    delete(msg);
 }
